@@ -2,19 +2,18 @@ package com.revolut.transfers.account.domain;
 
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Parent;
 import org.hibernate.annotations.Type;
 import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 
 
 @Embeddable
 @Immutable
 public class Entry {
+
     public Entry(AccountId accountId, MonetaryAmount amount) {
         this.accountId = accountId;
         this.amount = amount;
@@ -24,41 +23,23 @@ public class Entry {
         return accountId;
     }
 
-//    public Entry(Long accountId, MonetaryAmount amount) {
-//        this.accountId = accountId;
-//        this.amount = amount;
-//    }
-//
-//    public Long getAccountId() {
-//        return accountId;
-//    }
-
     public MonetaryAmount getAmount() {
         return amount;
     }
 
     private AccountId accountId;
-    @Columns(columns = { @Column(name = "currency"), @Column(name = "amount") })
+    @Columns(columns = {@Column(name = "currency"), @Column(name = "amount")})
     @Type(type = "org.jadira.usertype.moneyandcurrency.moneta.PersistentMoneyAmountAndCurrency")
     private MonetaryAmount amount;
 
     Entry() {
         accountId = AccountId.newId();
-        amount = Money.of(0,"PLN");
+        amount = Money.of(0, "PLN");
     }
 
     void setAccountId(AccountId anAccountId) {
         this.accountId = anAccountId;
     }
-
-//    Entry() {
-//        accountId = null;
-//        amount = Money.of(0,"PLN");
-//    }
-//
-//    void setAccountId(Long anAccountId) {
-//        this.accountId = anAccountId;
-//    }
 
     void setAmount(MonetaryAmount anAmount) {
         this.amount = anAmount;

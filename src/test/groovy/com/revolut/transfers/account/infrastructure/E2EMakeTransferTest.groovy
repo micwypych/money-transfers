@@ -9,7 +9,7 @@ import spock.lang.Specification
 
 import javax.money.Monetary
 
-import static com.revolut.transfers.account.infrastructure.TransactionUtil.withTransaction
+import static com.revolut.transfers.account.infrastructure.TransactionUtil.returnTransactionResult
 
 class E2EMakeTransferTest extends Specification {
     def "single transfer successfully stores transfer from Adam to Beth account" () {
@@ -20,12 +20,12 @@ class E2EMakeTransferTest extends Specification {
         Account adamAccount = new Account(accounts.nextId(), Monetary.getCurrency("PLN"))
         adamAccount.deposit(Money.of(350,"PLN"))
         Account bethAccount = new Account(accounts.nextId(), Monetary.getCurrency("PLN"))
-        withTransaction({ -> accounts.add(adamAccount); accounts.add(bethAccount)})
+        returnTransactionResult({ -> accounts.add(adamAccount); accounts.add(bethAccount) })
         when:
         transferService.transfer(adamAccount.getId(), bethAccount.getId(), Money.of(199, "PLN"))
 
-        adamAccount = withTransaction({ accounts.findById(adamAccount.getId())}).get()
-        bethAccount = withTransaction({ accounts.findById(bethAccount.getId())}).get()
+        adamAccount = returnTransactionResult({ accounts.findById(adamAccount.getId()) }).get()
+        bethAccount = returnTransactionResult({ accounts.findById(bethAccount.getId()) }).get()
         then:
         adamAccount.entries.size() == 2
         bethAccount.entries.size() == 1

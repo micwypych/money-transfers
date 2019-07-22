@@ -2,10 +2,12 @@ package com.revolut.transfers.account.domain;
 
 import bitronix.tm.TransactionManagerServices;
 
+import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.transaction.UserTransaction;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.revolut.transfers.account.infrastructure.TransactionUtil.returnTransactionResult;
 
 public class TransferService {
 
@@ -34,6 +36,16 @@ public class TransferService {
         }
 
     }
+
+    public Account createAccount(CurrencyUnit accountCurrencyUnit) {
+        return returnTransactionResult(() -> {
+            checkNotNull(accountCurrencyUnit);
+            Account account = new Account(accountRepository.nextId(), accountCurrencyUnit);
+            accountRepository.add(account);
+            return account;
+        });
+    }
+
 
     private AccountRepository accountRepository;
 }
