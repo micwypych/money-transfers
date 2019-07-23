@@ -6,3 +6,4 @@ jdk:
 
 script:
   - ./gradlew build --scan -s
+  - ./scripts/run_load_tests.sh
