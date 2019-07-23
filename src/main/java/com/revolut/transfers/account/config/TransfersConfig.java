@@ -2,16 +2,14 @@ package com.revolut.transfers.account.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.revolut.transfers.account.domain.Account;
+import com.revolut.transfers.account.domain.AccountId;
 import com.revolut.transfers.account.domain.AccountRepository;
 import com.revolut.transfers.account.domain.TransferService;
 import com.revolut.transfers.account.infrastructure.HibernateAccountRepository;
-import com.revolut.transfers.account.infrastructure.MoneyGsonTypeConverter;
 import com.revolut.transfers.account.infrastructure.TransferController;
 import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
-import java.util.Optional;
 
 public class TransfersConfig {
 
@@ -48,6 +46,7 @@ public class TransfersConfig {
         return new GsonBuilder()
                 .registerTypeAdapter(MonetaryAmount.class, new MoneyGsonTypeConverter())
                 .registerTypeAdapter(Money.class, new MoneyGsonTypeConverter())
+                .registerTypeAdapter(AccountId.class, new AccountIdGsonTypeConverter())
                 .create();
     }
 }

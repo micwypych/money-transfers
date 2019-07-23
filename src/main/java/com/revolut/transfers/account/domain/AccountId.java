@@ -9,22 +9,6 @@ import java.io.Serializable;
 
 @Embeddable
 public final class AccountId implements Serializable {
-    @GeneratedValue
-    @Column(nullable = false)
-    private Long id;
-
-    private AccountId(Long id) {
-        this.id = id;
-    }
-
-    public static AccountId newId() {
-        return null;
-    }
-
-    public static AccountId exisitingId(long id) {
-        return new AccountId(id);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +25,26 @@ public final class AccountId implements Serializable {
     @Override
     public String toString() {
         return "AccountId{" + id + '}';
+    }
+
+    public long toSerialize() {
+        return id;
+    }
+
+    @GeneratedValue
+    @Column(nullable = false)
+    private Long id;
+
+    private AccountId(Long id) {
+        this.id = id;
+    }
+
+    public static AccountId newId() {
+        return null;
+    }
+
+    public static AccountId exisitingId(long id) {
+        return new AccountId(id);
     }
 
     AccountId() {

@@ -4,6 +4,7 @@
 package com.revolut.transfers;
 
 
+import com.google.gson.Gson;
 import com.revolut.transfers.account.config.EntityManagerProvider;
 import com.revolut.transfers.account.config.TransfersConfig;
 import com.revolut.transfers.account.domain.AccountRepository;
@@ -21,16 +22,17 @@ public class App {
 
     public static void main(String[] args) {
         TransferController controller = TransfersConfig.defaultTransfersConfig();
+        Gson gson = TransfersConfig.gson();
 
         path("/api", () -> {
             before("/*", (q, a) -> log.info("Received api call"));
-            post("/account/{id}/trasferTo/{trasferToId}", (Request request, Response response) -> {
+            post("/account/:id/transferTo/:transferToId", (Request request, Response response) -> {
                 controller.makeTransfer(request, response);
                 return "";
             });
             post("/account", (Request request, Response response) -> {
                 return controller.createAccount(request, response);
-            });
+            },gson::toJson);
         });
     }
 

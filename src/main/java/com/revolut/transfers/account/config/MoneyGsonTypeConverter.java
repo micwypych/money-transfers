@@ -1,4 +1,4 @@
-package com.revolut.transfers.account.infrastructure;
+package com.revolut.transfers.account.config;
 
 import com.google.gson.*;
 import org.javamoney.moneta.Money;
