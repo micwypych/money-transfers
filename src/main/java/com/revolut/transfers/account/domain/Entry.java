@@ -1,5 +1,6 @@
 package com.revolut.transfers.account.domain;
 
+import com.google.common.base.Objects;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
@@ -25,6 +26,20 @@ public class Entry {
 
     public MonetaryAmount getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entry entry = (Entry) o;
+        return Objects.equal(accountId, entry.accountId) &&
+                Objects.equal(amount, entry.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(accountId, amount);
     }
 
     private AccountId accountId;

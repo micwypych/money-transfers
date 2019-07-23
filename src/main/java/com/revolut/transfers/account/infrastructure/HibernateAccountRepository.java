@@ -32,6 +32,12 @@ public class HibernateAccountRepository implements AccountRepository {
     }
 
     @Override
+    public void delete(Account account) {
+        EntityManager manager = getEntityManager();
+        manager.remove(account);
+    }
+
+    @Override
     public AccountId nextId() {
         BigInteger newId = (BigInteger)getEntityManager().createNativeQuery("SELECT NEXTVAL('ACCOUNT_SEQ') as account_id").getSingleResult();
         return AccountId.exisitingId(newId.longValue());

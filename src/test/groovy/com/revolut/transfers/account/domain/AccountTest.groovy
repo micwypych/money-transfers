@@ -67,6 +67,18 @@ class AccountTest extends Specification {
         ex.message == "The money amount cannot be negative: EUR -916.32"
     }
 
+    def "it is not possible to deposit zero amount of money into an account"() {
+        setup:
+        Account account = newAccount(3312, "EUR")
+
+        when:
+        account.deposit(Money.of(0.00, "EUR"))
+
+        then:
+        NegativeAmountOfMoneyException ex = thrown()
+        ex.message == "The money amount cannot be negative: EUR 0"
+    }
+
     def "it is possible to deposit money to new account"() {
         setup:
         Account account = newAccount(7813, "CHF")

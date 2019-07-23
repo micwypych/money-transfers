@@ -1,6 +1,8 @@
 package com.revolut.transfers.account.infrastructure
 
+import com.google.gson.Gson
 import com.revolut.transfers.account.config.EntityManagerProvider
+import com.revolut.transfers.account.config.TransfersConfig
 import com.revolut.transfers.account.domain.Account
 import com.revolut.transfers.account.domain.AccountRepository
 import com.revolut.transfers.account.domain.TransferService
@@ -9,6 +11,7 @@ import spock.lang.Specification
 
 import javax.money.Monetary
 
+import static com.revolut.transfers.account.domain.AccountTestUtil.newAccount
 import static com.revolut.transfers.account.infrastructure.TransactionUtil.returnTransactionResult
 
 class E2EMakeTransferTest extends Specification {

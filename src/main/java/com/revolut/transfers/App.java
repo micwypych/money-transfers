@@ -3,12 +3,37 @@
  */
 package com.revolut.transfers;
 
+
+import com.revolut.transfers.account.config.EntityManagerProvider;
+import com.revolut.transfers.account.config.TransfersConfig;
+import com.revolut.transfers.account.domain.AccountRepository;
+import com.revolut.transfers.account.domain.TransferService;
+import com.revolut.transfers.account.infrastructure.TransferController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import spark.Request;
+import spark.Response;
+
+import static spark.Spark.*;
+import static spark.route.HttpMethod.post;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        TransferController controller = TransfersConfig.defaultTransfersConfig();
+
+        path("/api", () -> {
+            before("/*", (q, a) -> log.info("Received api call"));
+            post("/account/{id}/trasferTo/{trasferToId}", (Request request, Response response) -> {
+                controller.makeTransfer(request, response);
+                return "";
+            });
+            post("/account", (Request request, Response response) -> {
+                return controller.createAccount(request, response);
+            });
+        });
     }
+
+    private final static Logger log = LoggerFactory.getLogger(App.class);
+
 }
