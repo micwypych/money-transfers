@@ -1,5 +1,6 @@
 package com.revolut.transfers.account.domain
 
+import com.revolut.transfers.account.domain.exceptions.TransferBetweenSameAccountException
 import org.javamoney.moneta.Money
 import spock.lang.Specification
 
@@ -34,7 +35,7 @@ class TransferServiceImplTest extends Specification {
         transferService.transfer(new AccountId(3446), new AccountId(3446), Money.of(213.44, "PLN"))
 
         then:
-        TransferBetweenSameAccount ex = thrown()
+        TransferBetweenSameAccountException ex = thrown()
         ex.message == "Transfer between same account: AccountId{3446}"
     }
 

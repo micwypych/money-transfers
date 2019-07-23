@@ -3,12 +3,7 @@
  */
 package com.revolut.transfers
 
-import okhttp3.Call
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
+import okhttp3.*
 import spock.lang.Specification
 
 class AppIntegrationTest extends Specification {
@@ -37,12 +32,12 @@ class AppIntegrationTest extends Specification {
         bethAccount.body().string().contains("\"balance\":{\"currency\":\"PLN\",\"amount\":345.67}")
 
         when: "beth makes transfer to adam"
-        Response transfer = makeTransfer(2, 1,"{\"currency\":\"PLN\",\"amount\":13.45}")
+        Response transfer = makeTransfer(2, 1, "{\"currency\":\"PLN\",\"amount\":13.45}")
         then: "transfer is successful"
         transfer.code() == 204
 
         when: "adam makes transfer back to beth, he does not have enough founds"
-        Response returnTransfer = makeTransfer(1, 2,"{\"currency\":\"PLN\",\"amount\":19.99}")
+        Response returnTransfer = makeTransfer(1, 2, "{\"currency\":\"PLN\",\"amount\":19.99}")
         then: "transfer is refused"
         returnTransfer.code() == 500
 

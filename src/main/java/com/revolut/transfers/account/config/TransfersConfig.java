@@ -2,6 +2,10 @@ package com.revolut.transfers.account.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.revolut.transfers.account.config.typeconverters.AccountIdGsonTypeConverter;
+import com.revolut.transfers.account.config.typeconverters.CreateAccountDTOGsonTypeConverter;
+import com.revolut.transfers.account.config.typeconverters.CurrencyGsonTypeConverter;
+import com.revolut.transfers.account.config.typeconverters.MoneyGsonTypeConverter;
 import com.revolut.transfers.account.domain.AccountId;
 import com.revolut.transfers.account.domain.AccountRepository;
 import com.revolut.transfers.account.domain.TransferService;
@@ -52,7 +56,7 @@ public class TransfersConfig {
                 .create();
     }
 
-    private TransfersConfig(){
+    private TransfersConfig() {
 
     }
 }

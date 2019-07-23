@@ -40,7 +40,7 @@ public class HibernateAccountRepository implements AccountRepository {
 
     @Override
     public AccountId nextId() {
-        BigInteger newId = (BigInteger)getEntityManager().createNativeQuery("SELECT NEXTVAL('ACCOUNT_SEQ') as account_id").getSingleResult();
+        BigInteger newId = (BigInteger) getEntityManager().createNativeQuery("SELECT NEXTVAL('ACCOUNT_SEQ') as account_id").getSingleResult();
         return AccountId.exisitingId(newId.longValue());
 
     }

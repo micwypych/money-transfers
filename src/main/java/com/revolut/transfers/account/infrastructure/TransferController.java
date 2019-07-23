@@ -26,7 +26,7 @@ public class TransferController {
         AccountId toAcountId = AccountId.exisitingId(Long.parseLong(request.params("transferToId")));
 
         MonetaryAmount amount = gson.fromJson(request.body(), MonetaryAmount.class);
-        transferService.transfer(fromAcountId,toAcountId,amount);
+        transferService.transfer(fromAcountId, toAcountId, amount);
         response.status(204);
     }
 
@@ -39,12 +39,12 @@ public class TransferController {
             return transferService.createAccount(accountData.getCurrency());
         }
     }
-    
+
     public Account retrieveAccount(Request request, Response response) {
         AccountId toRetrieveId = AccountId.exisitingId(Long.parseLong(request.params("id")));
         return transferService.retriveAccount(toRetrieveId);
     }
-    
+
     public void deleteAccount(Request request, Response response) {
         AccountId toDeleteId = AccountId.exisitingId(Long.parseLong(request.params("id")));
         transferService.deleteAccount(toDeleteId);

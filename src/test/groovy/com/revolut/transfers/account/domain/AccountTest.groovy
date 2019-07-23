@@ -1,5 +1,8 @@
 package com.revolut.transfers.account.domain
 
+import com.revolut.transfers.account.domain.exceptions.MontetaryAmountRequiresConversionException
+import com.revolut.transfers.account.domain.exceptions.NegativeAmountOfMoneyException
+import com.revolut.transfers.account.domain.exceptions.NotEnoghFoundException
 import org.javamoney.moneta.Money
 import spock.lang.Specification
 
@@ -27,7 +30,7 @@ class AccountTest extends Specification {
         account.deposit(Money.of(987.45, "GBP"))
 
         then:
-        MontetaryAmountRequiresConversion ex = thrown()
+        MontetaryAmountRequiresConversionException ex = thrown()
         ex.message == "Account id: AccountId{4432}. Requested currency: GBP does not match the account's currency: EUR."
     }
 
@@ -39,7 +42,7 @@ class AccountTest extends Specification {
         account.withdraw(Money.of(10023.345, "JOD"))
 
         then:
-        MontetaryAmountRequiresConversion ex = thrown()
+        MontetaryAmountRequiresConversionException ex = thrown()
         ex.message == "Account id: AccountId{1278}. Requested currency: JOD does not match the account's currency: EUR."
     }
 

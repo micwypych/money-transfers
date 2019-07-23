@@ -1,4 +1,4 @@
-package com.revolut.transfers.account.config;
+package com.revolut.transfers.account.config.typeconverters;
 
 import com.google.gson.*;
 import com.revolut.transfers.account.infrastructure.TransferController;

@@ -6,7 +6,7 @@ package com.revolut.transfers;
 
 import com.google.gson.Gson;
 import com.revolut.transfers.account.config.TransfersConfig;
-import com.revolut.transfers.account.domain.AccountNotFoundException;
+import com.revolut.transfers.account.domain.exceptions.AccountNotFoundException;
 import com.revolut.transfers.account.infrastructure.TransferController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

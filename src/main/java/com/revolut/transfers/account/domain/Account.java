@@ -1,6 +1,9 @@
 package com.revolut.transfers.account.domain;
 
 import com.google.common.base.Objects;
+import com.revolut.transfers.account.domain.exceptions.MontetaryAmountRequiresConversionException;
+import com.revolut.transfers.account.domain.exceptions.NegativeAmountOfMoneyException;
+import com.revolut.transfers.account.domain.exceptions.NotEnoghFoundException;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -97,7 +100,7 @@ public class Account {
 
     private void checkIfOperationCurrencyMatchesAccountCurrency(MonetaryAmount amount) {
         if (!amount.getCurrency().equals(getBalance().getCurrency())) {
-            throw new MontetaryAmountRequiresConversion(getId(), amount.getCurrency(), getBalance().getCurrency());
+            throw new MontetaryAmountRequiresConversionException(getId(), amount.getCurrency(), getBalance().getCurrency());
         }
     }
 

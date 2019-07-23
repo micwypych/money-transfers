@@ -1,10 +1,11 @@
 package com.revolut.transfers.account.domain;
 
+import com.revolut.transfers.account.domain.exceptions.AccountNotFoundException;
+import com.revolut.transfers.account.domain.exceptions.TransferBetweenSameAccountException;
 import org.javamoney.moneta.Money;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -64,7 +65,7 @@ public class TransferServiceImpl implements TransferService {
 
     private void checkNotSameAccounts(AccountId from, AccountId to) {
         if (from.equals(to)) {
-            throw new TransferBetweenSameAccount(from);
+            throw new TransferBetweenSameAccountException(from);
         }
     }
 }

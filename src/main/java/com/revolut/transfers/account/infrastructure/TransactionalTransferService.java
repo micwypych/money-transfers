@@ -6,7 +6,6 @@ import com.revolut.transfers.account.domain.TransferService;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-
 import java.math.BigDecimal;
 
 import static com.revolut.transfers.account.infrastructure.TransactionUtil.returnTransactionResult;

@@ -1,4 +1,6 @@
-package com.revolut.transfers.account.domain;
+package com.revolut.transfers.account.domain.exceptions;
+
+import com.revolut.transfers.account.domain.AccountId;
 
 import javax.money.MonetaryAmount;
 

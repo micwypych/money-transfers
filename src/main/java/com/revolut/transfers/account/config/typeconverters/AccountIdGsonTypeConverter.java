@@ -1,13 +1,11 @@
-package com.revolut.transfers.account.config;
+package com.revolut.transfers.account.config.typeconverters;
 
 import com.google.gson.*;
 import com.revolut.transfers.account.domain.AccountId;
-import org.javamoney.moneta.Money;
 
-import javax.money.MonetaryAmount;
 import java.lang.reflect.Type;
 
-public class AccountIdGsonTypeConverter  implements JsonSerializer<AccountId>, JsonDeserializer<AccountId> {
+public class AccountIdGsonTypeConverter implements JsonSerializer<AccountId>, JsonDeserializer<AccountId> {
     @Override
     public JsonElement serialize(AccountId src, Type srcType, JsonSerializationContext context) {
         return new JsonPrimitive(src.toSerialize());

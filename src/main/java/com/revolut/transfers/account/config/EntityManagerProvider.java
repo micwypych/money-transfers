@@ -17,15 +17,15 @@ public class EntityManagerProvider {
     }
 
     private Map<String, String> properties() {
-        Map<String,String> properties = new HashMap<>();
-        properties.put("javax.persistence.jdbc.driver","org.h2.Driver");
-        properties.put("javax.persistence.jdbc.url","jdbc:h2:mem:test");
-        properties.put("javax.persistence.jdbc.user","sa");
-        properties.put("javax.persistence.jdbc.password","");
-        properties.put("hibernate.dialect","org.hibernate.dialect.H2Dialect");
-        properties.put("hibernate.hbm2ddl.auto","create-drop");
-        properties.put("show_sql","true");
-        properties.put("org.jadira.usertype.dateandtime.joda.PersistentDateTime","dateTime");
+        Map<String, String> properties = new HashMap<>();
+        properties.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+        properties.put("javax.persistence.jdbc.url", "jdbc:h2:mem:test");
+        properties.put("javax.persistence.jdbc.user", "sa");
+        properties.put("javax.persistence.jdbc.password", "");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("show_sql", "true");
+        properties.put("org.jadira.usertype.dateandtime.joda.PersistentDateTime", "dateTime");
         return properties;
     }
 
