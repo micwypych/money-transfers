@@ -1,6 +1,6 @@
 package com.revolut.transfers.account.infrastructure
 
-import com.google.gson.Gson
+
 import com.revolut.transfers.account.config.EntityManagerProvider
 import com.revolut.transfers.account.config.TransfersConfig
 import com.revolut.transfers.account.domain.Account
@@ -11,15 +11,14 @@ import spock.lang.Specification
 
 import javax.money.Monetary
 
-import static com.revolut.transfers.account.domain.AccountTestUtil.newAccount
 import static com.revolut.transfers.account.infrastructure.TransactionUtil.returnTransactionResult
 
-class E2EMakeTransferTest extends Specification {
+class MakeTransferWithDbIntegrationTest extends Specification {
     def "single transfer successfully stores transfer from Adam to Beth account" () {
         setup:
-        EntityManagerProvider provider = new EntityManagerProvider()
-        AccountRepository accounts = new HibernateAccountRepository(provider)
-        TransferService transferService = new TransferService(accounts)
+        EntityManagerProvider provider = TransfersConfig.entityManagerProvider()
+        AccountRepository accounts = TransfersConfig.accountRepository(provider)
+        TransferService transferService = TransfersConfig.transferService(accounts)
         Account adamAccount = new Account(accounts.nextId(), Monetary.getCurrency("PLN"))
         adamAccount.deposit(Money.of(350,"PLN"))
         Account bethAccount = new Account(accounts.nextId(), Monetary.getCurrency("PLN"))

@@ -5,10 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.revolut.transfers.account.domain.AccountId;
 import com.revolut.transfers.account.domain.AccountRepository;
 import com.revolut.transfers.account.domain.TransferService;
+import com.revolut.transfers.account.domain.TransferServiceImpl;
 import com.revolut.transfers.account.infrastructure.HibernateAccountRepository;
+import com.revolut.transfers.account.infrastructure.TransactionalTransferService;
 import com.revolut.transfers.account.infrastructure.TransferController;
 import org.javamoney.moneta.Money;
 
+import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
 public class TransfersConfig {
@@ -25,11 +28,8 @@ public class TransfersConfig {
     }
 
     public static TransferService transferService(AccountRepository accountRepository) {
-        return new TransferService(accountRepository);
-    }
-
-    private TransfersConfig(){
-
+        TransferService nonTransactionalService = new TransferServiceImpl(accountRepository);
+        return new TransactionalTransferService(nonTransactionalService);
     }
 
     public static TransferController transferController(Gson gson, TransferService transferService) {
@@ -47,6 +47,12 @@ public class TransfersConfig {
                 .registerTypeAdapter(MonetaryAmount.class, new MoneyGsonTypeConverter())
                 .registerTypeAdapter(Money.class, new MoneyGsonTypeConverter())
                 .registerTypeAdapter(AccountId.class, new AccountIdGsonTypeConverter())
+                .registerTypeAdapter(CurrencyUnit.class, new CurrencyGsonTypeConverter())
+                .registerTypeAdapter(TransferController.CreateAccountDTO.class, new CreateAccountDTOGsonTypeConverter())
                 .create();
+    }
+
+    private TransfersConfig(){
+
     }
 }

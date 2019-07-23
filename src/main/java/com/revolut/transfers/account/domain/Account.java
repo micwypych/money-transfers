@@ -54,6 +54,10 @@ public class Account {
         return balance;
     }
 
+    public CurrencyUnit getCurrency() {
+        return getBalance().getCurrency();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

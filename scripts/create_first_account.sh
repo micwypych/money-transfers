@@ -1,0 +1,1 @@
+curl -X POST -d '{"currency":"PLN"}' localhost:4567/api/account
