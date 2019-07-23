@@ -34,6 +34,7 @@ public class HibernateAccountRepository implements AccountRepository {
     @Override
     public void delete(Account account) {
         EntityManager manager = getEntityManager();
+        account = manager.merge(account);
         manager.remove(account);
     }
 
