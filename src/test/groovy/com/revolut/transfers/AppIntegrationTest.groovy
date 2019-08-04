@@ -11,7 +11,7 @@ class AppIntegrationTest extends Specification {
     static OkHttpClient client
 
     def setupSpec() {
-        App.main()
+        App.main([] as String[])
         client = new OkHttpClient()
         sleep(15000)
     }
