@@ -9,11 +9,17 @@ import java.util.Map;
 public class EntityManagerProvider {
 
     public EntityManager session() {
-        return factory.createEntityManager();
+        EntityManager session = sessions.get();
+        if (session == null) {
+            session = factory.createEntityManager();
+            sessions.set(session);
+        }
+        return session;
     }
 
     public EntityManagerProvider() {
         factory = Persistence.createEntityManagerFactory("test", properties());
+        sessions = new ThreadLocal<>();
     }
 
     private Map<String, String> properties() {
@@ -30,4 +36,5 @@ public class EntityManagerProvider {
     }
 
     private EntityManagerFactory factory;
+    private ThreadLocal<EntityManager> sessions;
 }
